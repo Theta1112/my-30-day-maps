@@ -57,7 +57,8 @@ p <- ggplot(data = data_filtered) +
   annotate("text", x = 306611.74, y = 38503.70, label = mid_vac_text, color = "orange", size = 4, fontface = "bold", hjust = 0) + 
   annotate("text", x = 314911.74, y = 38503.70, label = high_vac_text, color = brewer.pal(3, "YlOrRd")[3], size = 4, fontface = "bold", hjust = 0) + 
   labs(title = title_text,
-    subtitle = "High home prices and rents have pushed people out of Manhattan and into the surrounding counties") + 
+    subtitle = "High home prices and rents have pushed people out of Manhattan and into the surrounding counties",
+    caption = "Data from U.S. 2020 Decennial Census") + 
   theme_void() + 
   theme(plot.title = element_markdown(hjust = 0, face = "bold", size = 17))
 p
