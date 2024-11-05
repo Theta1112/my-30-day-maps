@@ -22,10 +22,6 @@ brooklyn <- get_decennial(year = 2020,
   rename(total_housing = "H3_001N", 
          vacant = "H3_003N")
 
-# Read neighborhood boundary data
-neighborhoods <- st_read("data/Neighborhoods_Boundries.geojson") %>%
-  st_transform(NYC_CRS)
-
 # Read pothole data
 potholes <- st_read("data/potholes.geojson") %>%
   st_transform(NYC_CRS)
@@ -47,27 +43,11 @@ hex_crop = st_make_grid(brooklyn,
   mutate(temp_id = 1:4) %>%
   filter(temp_id == 2)
 
-
-ggplot() + 
-  xlim(288333.21, 315308.55) + 
-  # ylim(59611.74, 80403.70) + 
-  geom_sf(data = brooklyn) + 
-  geom_sf(data = hex_crop, fill = NA)
-
-?st_make_grid
 # To sf and add grid ID
 hc_grid_sf = st_sf(hc_grid) %>%
   st_transform(crs = NYC_CRS) %>% 
   mutate(grid_id = 1:length(lengths(hc_grid))) %>%
   rename(geometry = "hc_grid")
-
-t.hex <- data.frame(id = c(1),
-           x = c(300000.00),
-           y = c(55000))
-
-
-  # geom_sf(data = hc_grid_sf, fill = NA)
-  # geom_polygon(data = t.hex, aes(group = id, x = x, y = y), fill = "wheat")
 
 
 ############## 2. Process Data ##################################################
@@ -96,13 +76,10 @@ pothole_hc <- pothole_hc %>%
   st_sf() %>% 
   st_intersection(hex_crop)
 
-summary(t$temp_id)  
-  
 
-hist(pothole_hc$Potholes)
 pothole_quantiles <- quantile(pothole_hc$Potholes, c(0.25, 0.5, 0.75), na.rm = T)
 
-# Transform data map onto 3 regions
+# Map data onto 4 regions based on quartiles
 pothole_hc <- pothole_hc %>%
   mutate(pothole_cat = case_when(
     Potholes < pothole_quantiles[1] ~ "Bottom Quarter",
@@ -151,8 +128,6 @@ p <- ggplot() +
        caption = "Data from NYC Open Data, January 2024") + 
   theme_void() + 
   theme(plot.title = element_markdown(hjust = 0, face = "bold", size = 17))
-
-
 
 p
 
