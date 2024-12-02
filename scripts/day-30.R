@@ -37,8 +37,8 @@ housing.filtered <- housing.sf %>%
 
 sum(housing.data$All.Counted.Units)
 
-title_text = glue("Neighborhoods with <b>>250</b> affordable housing units.")
-subtitle_text = glue("In the last decade, NYC has built over 259,000 affordable housing units. But we reflect on what's missing.")
+title_text = glue("NYC Neighborhoods with <b>more than 250</b> affordable housing units.")
+subtitle_text = glue("In the last decade, NYC has built over 259,000 affordable housing units.")
 
 p<- ggplot() + 
   xlim(bbox[1], bbox[3]) + 
@@ -47,14 +47,14 @@ p<- ggplot() +
   geom_sf(data = housing.filtered, 
           fill = "white",
           # aes(fill = housing), 
-          colour = "#3057E1") + 
+          colour = "#003884") + 
   labs(title = title_text,
        subtitle = subtitle_text,
        caption = "Source: NYC Open Data") + 
   theme_void() + 
   theme(plot.title = element_markdown(hjust = 0, size = 18),
-        plot.subtitle = element_markdown(hjust = 0, size = 12),
-        panel.background = element_rect(fill = "#3057E1"))
+        plot.subtitle = element_markdown(hjust = 0, size = 13),
+        panel.background = element_rect(fill = "#003884"))
 
 ggsave("output/day-30.png", p, bg = "white", width = 8, height = 8)
 
