@@ -1,2 +1,3 @@
-# my-30-day-maps
- My entries for the 30 day Mapping Challenge
+# 2024 30 Day Mapping Challenges
+
+This repository contains the code and maps that I made for the 2024 30 day map challenge[https://30daymapchallenge.com/]. 
